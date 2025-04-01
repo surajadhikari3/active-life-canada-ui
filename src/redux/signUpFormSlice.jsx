@@ -11,7 +11,7 @@ const initialState = {
 
 
 const signUpFormSlice = createSlice({
-    name: "form",
+    name: "signUpForm",
     initialState,
     reducers: {
         updateFormData: (state, action) => {

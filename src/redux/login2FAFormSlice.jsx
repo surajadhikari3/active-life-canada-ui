@@ -6,7 +6,7 @@ const initialState = {
 };
 
 const login2FAFormSlice = createSlice({
-    name: "form",
+    name: "login2FAForm",
     initialState,
     reducers: {
         updateFormData: (state, action) => {

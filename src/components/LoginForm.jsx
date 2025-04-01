@@ -3,10 +3,13 @@ import {yupResolver} from "@hookform/resolvers/yup";
 import {useSelector, useDispatch} from "react-redux";
 import {updateFormData, resetForm} from "../redux/loginFormSlice.jsx";
 import {loginFormSchema} from "../validation/loginValidationSchema.jsx";
+import { useNavigate } from "react-router";
+import {AUTHENTICATION_BASE_URL} from "../constant/activeLifeConstants.jsx";
 
 const LoginForm = () => {
     const dispatch = useDispatch();
     const formData = useSelector(state => state.loginForm);
+    const navigate = useNavigate();
 
     const {
         register,
@@ -23,10 +26,26 @@ const LoginForm = () => {
     };
 
     const onSubmit = async (data) => {
-        console.log("Submitted Data:", data);
-        alert("Form submitted successfully!");
-        dispatch(resetForm());
-        reset()
+        try {
+            const response = await fetch(AUTHENTICATION_BASE_URL + "/login", {
+
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            })
+
+            const responseData = await response.json();
+            console.log("Server Response", responseData);
+            dispatch(resetForm());
+            reset();
+            alert("Login SuccessFul");
+            navigate('/login2FA')
+        } catch (error) {
+            console.error("Submission error", error);
+            alert("Failed to submit form. Please try again")
+        }
     };
 
     return (

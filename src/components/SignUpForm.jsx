@@ -4,10 +4,15 @@ import {useSelector, useDispatch} from "react-redux";
 import {updateFormData, resetForm} from "../redux/signUpFormSlice.jsx";
 import {signUpFormSchema} from "../validation/signupValidationSchema.jsx";
 import {ChevronDownIcon} from "@heroicons/react/16/solid/index.js";
+import {useNavigate} from "react-router";
+import {AUTHENTICATION_BASE_URL} from "../constant/activeLifeConstants.jsx";
+
 
 const SignUpForm = () => {
     const dispatch = useDispatch();
     const formData = useSelector(state => state.signUpForm);
+
+    const navigate = useNavigate()
 
     const {
         register,
@@ -24,10 +29,26 @@ const SignUpForm = () => {
     };
 
     const onSubmit = async (data) => {
-        console.log("Submitted Data:", data);
-        alert("Form submitted successfully!");
-        dispatch(resetForm());
-        reset()
+        try {
+            const response = await fetch(AUTHENTICATION_BASE_URL + "/signup", {
+
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            })
+
+            const responseData = await response.json();
+            console.log("Server Response", responseData);
+            dispatch(resetForm());
+            reset();
+            alert("Signup SuccessFul");
+            navigate('/login');
+        } catch (error) {
+            console.error("Submission error", error);
+            alert("Failed to submit form. Please try again")
+        }
     };
 
     return (

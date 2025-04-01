@@ -9,7 +9,5 @@ export const login2FAFormSchema = yup.object().shape({
         .number()
         .typeError("Otp must be a number") // Ensures it's a number
         .integer("Otp must be an integer") // Prevents decimals
-        .min(10000, "OTP must be at least 5 digits") // Ensures minimum 5 digits
-        .max(99999, "OTP must be at most 5 digits") // Ensures exactly 5 digits
         .required("OTP is required")
 });

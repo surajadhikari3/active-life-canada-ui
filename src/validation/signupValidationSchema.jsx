@@ -3,7 +3,7 @@ import * as yup from "yup";
 export const signUpFormSchema = yup.object().shape({
     name: yup.string().required("Name is required"),
     city: yup.string().required("City is required"),
-    homePhone: yup.string().required("City is required"),
+    homePhone: yup.string().required("HomePhone is required"),
     email: yup.string().email("Invalid email").required("Email is required"),
     familyPin: yup
         .number()

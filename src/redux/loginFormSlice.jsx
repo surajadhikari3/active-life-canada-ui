@@ -5,9 +5,8 @@ const initialState = {
     familyPin: "",
 };
 
-
 const loginFormSlice = createSlice({
-    name: "form",
+    name: "loginForm",
     initialState,
     reducers: {
         updateFormData: (state, action) => {

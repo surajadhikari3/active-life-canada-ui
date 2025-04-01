@@ -3,10 +3,14 @@ import {yupResolver} from "@hookform/resolvers/yup";
 import {useSelector, useDispatch} from "react-redux";
 import {updateFormData, resetForm} from "../redux/login2FAFormSlice.jsx";
 import {login2FAFormSchema} from "../validation/login2FAValidationSchema.jsx";
+import {AUTHENTICATION_BASE_URL} from "../constant/activeLifeConstants.jsx";
+import {useNavigate} from "react-router";
 
 const Login2FAForm = () => {
     const dispatch = useDispatch();
     const formData = useSelector(state => state.login2FAForm);
+
+    const navigate = useNavigate();
 
     const {
         register,
@@ -22,12 +26,29 @@ const Login2FAForm = () => {
         dispatch(updateFormData({[e.target.name]: e.target.value}));
     };
 
+    //since it is promise calling the async await....
     const onSubmit = async (data) => {
-        console.log("Submitted Data:", data);
-        alert("Form submitted successfully!");
-        dispatch(resetForm());
-        reset()
-    };
+            try {
+                const response = await fetch(AUTHENTICATION_BASE_URL + "/login/2fa", {
+
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(data)
+                })
+
+                const responseData = await response.json();
+                console.log("Server Response", responseData);
+                dispatch(resetForm());
+                reset();
+                alert("Final Login SuccessFul");
+                navigate('/course')
+            } catch (error) {
+                console.error("Submission error", error);
+                alert("Failed to submit form. Please try again")
+            }
+        };
 
     return (
         <>
