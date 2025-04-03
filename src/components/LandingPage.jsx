@@ -31,7 +31,7 @@ const LandingPage = () => {
                         {/* Swimming */}
                         <div className="bg-white rounded-lg shadow-md overflow-hidden">
                             <img
-                                src={images.swimming}
+                                src="/category/swim-image.jpg"
                                 alt="Swimming"
                                 className="w-full h-64 object-cover"
                             />

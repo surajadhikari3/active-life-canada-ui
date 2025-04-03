@@ -6,6 +6,7 @@ import {signUpFormSchema} from "../validation/signupValidationSchema.jsx";
 import {ChevronDownIcon} from "@heroicons/react/16/solid/index.js";
 import {useNavigate} from "react-router";
 import {AUTHENTICATION_BASE_URL} from "../constant/activeLifeConstants.jsx";
+import {toast} from 'sonner';
 
 
 const SignUpForm = () => {
@@ -15,13 +16,9 @@ const SignUpForm = () => {
     const navigate = useNavigate()
 
     const {
-        register,
-        handleSubmit,
-        reset,
-        formState: {errors, isSubmitting},
+        register, handleSubmit, reset, formState: {errors, isSubmitting},
     } = useForm({
-        resolver: yupResolver(signUpFormSchema),
-        defaultValues: formData,
+        resolver: yupResolver(signUpFormSchema), defaultValues: formData,
     });
 
     const handleAutoSave = (e) => {
@@ -32,18 +29,14 @@ const SignUpForm = () => {
         try {
             const response = await fetch(AUTHENTICATION_BASE_URL + "/signup", {
 
-                method: "POST",
-                headers: {
+                method: "POST", headers: {
                     "Content-Type": "application/json"
-                },
-                body: JSON.stringify(data)
+                }, body: JSON.stringify(data)
             })
-
-            const responseData = await response.json();
-            console.log("Server Response", responseData);
+            await response.json();
             dispatch(resetForm());
             reset();
-            alert("Signup SuccessFul");
+            toast('Signup SuccessFul')
             navigate('/login');
         } catch (error) {
             console.error("Submission error", error);
@@ -51,8 +44,7 @@ const SignUpForm = () => {
         }
     };
 
-    return (
-        <>
+    return (<>
             <div
                 className="flex min-h-full flex-1 justify-center items-center flex-col justify-center px-6 py-12 lg:px-8">
                 <form onSubmit={handleSubmit(onSubmit)}
@@ -60,24 +52,16 @@ const SignUpForm = () => {
                     <h2 className="text-xl font-semibold text-gray-900">Family Sign Up</h2>
                     {/*<p className="text-sm text-gray-600">Please fill out the form below.</p>*/}
 
-                    {[
-                        {name: "name", label: "Name", type: "text", placeholder: "Enter your name"},
-                        {
-                            name: "familyPin",
-                            label: "Family Pin",
-                            type: "number",
-                            placeholder: "Enter a 5-digit pin"
-                        },
-                        {name: "city", label: "City", type: "text", placeholder: "Enter your city"},
-                        {name: "email", label: "Email", type: "email", placeholder: "Enter your email"},
-                        {
-                            name: "homePhone",
-                            label: "Home Phone",
-                            type: "tel",
-                            placeholder: "Enter your phone number"
-                        },
-                    ].map(({name, label, type, placeholder}) => (
-                        <div key={name} className="sm:col-span-4">
+                    {[{name: "name", label: "Name", type: "text", placeholder: "Enter your name"}, {
+                        name: "familyPin", label: "Family Pin", type: "number", placeholder: "Enter a 5-digit pin"
+                    }, {name: "city", label: "City", type: "text", placeholder: "Enter your city"}, {
+                        name: "email",
+                        label: "Email",
+                        type: "email",
+                        placeholder: "Enter your email"
+                    }, {
+                        name: "homePhone", label: "Home Phone", type: "tel", placeholder: "Enter your phone number"
+                    },].map(({name, label, type, placeholder}) => (<div key={name} className="sm:col-span-4">
                             <label className="block text-sm font-medium text-gray-900">{label}</label>
                             <div className="mt-2">
                                 <input
@@ -89,8 +73,7 @@ const SignUpForm = () => {
                                 />
                             </div>
                             {errors[name] && <p className="text-red-500 text-sm mt-1">{errors[name].message}</p>}
-                        </div>
-                    ))}
+                        </div>))}
 
                     <div className="sm:col-span-4">
                         <label className="block text-sm font-medium text-gray-900">Preferred Contact</label>
@@ -110,8 +93,7 @@ const SignUpForm = () => {
                         </div>
                         {errors.preferredContact &&
                             <p className="text-red-500 text-sm mt-1">{errors.preferredContact.message}
-                            </p>
-                        }
+                            </p>}
                     </div>
 
                     <button
@@ -123,8 +105,7 @@ const SignUpForm = () => {
                     </button>
                 </form>
             </div>
-        </>
-    )
+        </>)
 };
 
 

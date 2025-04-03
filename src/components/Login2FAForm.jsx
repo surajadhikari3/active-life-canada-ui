@@ -5,8 +5,7 @@ import {updateFormData, resetForm} from "../redux/login2FAFormSlice.jsx";
 import {login2FAFormSchema} from "../validation/login2FAValidationSchema.jsx";
 import {useNavigate} from "react-router";
 import {updateAuthenticationStatus} from "../redux/authenticationSlice.jsx";
-import axiosInstance from "../axios/axiosInstance.js";
-import {  toast } from 'react-toastify';
+import { toast } from 'sonner';
 import {AUTHENTICATION_BASE_URL} from "../constant/activeLifeConstants.jsx";
 
 const Login2FAForm = () => {

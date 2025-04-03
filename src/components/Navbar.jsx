@@ -1,16 +1,27 @@
 import { Disclosure, DisclosureButton } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon, BellIcon } from '@heroicons/react/24/outline';
 import { FaSignInAlt, FaUserPlus, FaHome, FaBookOpen } from 'react-icons/fa';
+import {useSelector, useDispatch} from "react-redux";
+import {resetAuthenticationStatus} from "../redux/authenticationSlice.jsx";
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ');
 }
 
 export default function Navbar() {
+
+    const authenticationStatus = useSelector(state => state.authentication);
+    const dispatch = useDispatch();
+    console.log("authentica", authenticationStatus)
+
     const navigation = [
         { name: 'Dashboard', href: '/dashboard', icon: <FaHome className="mr-2" />, current: true },
         { name: 'Courses', href: '/course', icon: <FaBookOpen className="mr-2" />, current: false },
     ];
+
+    const logOut = () => {
+        dispatch(resetAuthenticationStatus());
+    }
 
     return (
         <div className="w-full fixed top-0 bg-white shadow-md">
@@ -50,12 +61,21 @@ export default function Navbar() {
                             </div>
                         </div>
                         <div className="flex items-center space-x-4">
+                            {!authenticationStatus.isActive ?
+                                <>
                             <a href="/login" className="flex items-center bg-gray-700 text-white px-3 py-2 rounded-lg hover:bg-gray-600">
                                 <FaSignInAlt className="mr-2" /> Login
                             </a>
                             <a href="/signup" className="flex items-center bg-blue-600 text-white px-3 py-2 rounded-lg hover:bg-blue-500">
                                 <FaUserPlus className="mr-2" /> SignUp
                             </a>
+                            </> : <>
+                                    <a href="/" className="flex items-center bg-blue-600 text-white px-3 py-2 rounded-lg hover:bg-blue-500">
+                                        <FaUserPlus className="mr-2" onClick={() => logOut()} /> Logout
+                                    </a>
+                                </>
+                            }
+
                         </div>
                     </div>
                 </div>

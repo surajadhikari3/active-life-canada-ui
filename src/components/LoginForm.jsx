@@ -5,6 +5,8 @@ import {updateFormData, resetForm} from "../redux/loginFormSlice.jsx";
 import {loginFormSchema} from "../validation/loginValidationSchema.jsx";
 import { useNavigate } from "react-router";
 import {AUTHENTICATION_BASE_URL} from "../constant/activeLifeConstants.jsx";
+import { toast } from 'sonner';
+
 
 const LoginForm = () => {
     const dispatch = useDispatch();
@@ -40,7 +42,7 @@ const LoginForm = () => {
             console.log("Server Response", responseData);
             dispatch(resetForm());
             reset();
-            alert("Login SuccessFul");
+            toast('Login SuccessFul');
             navigate('/login2FA')
         } catch (error) {
             console.error("Submission error", error);
