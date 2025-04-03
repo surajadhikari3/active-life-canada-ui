@@ -5,7 +5,7 @@ import {updateFormData, resetForm} from "../redux/login2FAFormSlice.jsx";
 import {login2FAFormSchema} from "../validation/login2FAValidationSchema.jsx";
 import {useNavigate} from "react-router";
 import {updateAuthenticationStatus} from "../redux/authenticationSlice.jsx";
-import { toast } from 'sonner';
+import { toast } from 'react-toastify';
 import {AUTHENTICATION_BASE_URL} from "../constant/activeLifeConstants.jsx";
 
 const Login2FAForm = () => {
@@ -40,6 +40,10 @@ const Login2FAForm = () => {
                 })
 
                 const responseData = await response.json();
+                if(!response.ok){
+                    throw new Error(responseData.message || `Server Error: ${response.status}`);
+                }
+
                 console.log("Server Response", responseData);
                 const token = responseData?.token
                 console.log(token);
@@ -50,11 +54,11 @@ const Login2FAForm = () => {
                     memberLoginId: data.familyMemberId,
                     isActive: true
                 }))
-                toast("Final Login SuccessFul");
+                toast.success('2FA Login Successful!', { position: "top-right", autoClose: 3000 });
                 navigate('/')
             } catch (error) {
                 console.error("Submission error", error);
-                toast("Failed to submit form. Please try again")
+                toast.error(error.message || "Something went wrong", { position: "top-right", autoClose: 3000 });
             }
         };
 

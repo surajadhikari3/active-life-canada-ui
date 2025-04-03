@@ -24,17 +24,6 @@ const CourseList = () => {
     }, []);
 
 
-    // useEffect(() => {
-    //     // Fetch the courses from the backend (replace with your actual API)
-    //     fetch("/api/courses")
-    //         .then((response) => response.json())
-    //         .then((data) => {
-    //             setCourses(data);
-    //             setFilteredCourses(data); // Initially, show all courses
-    //         })
-    //         .catch((error) => console.error("Error fetching courses:", error));
-    // }, []);
-
     useEffect(() => {
         // Filter courses based on search
         setFilteredCourses(
@@ -44,13 +33,14 @@ const CourseList = () => {
         );
     }, [search, courses]);
 
-    // Function to generate the image URL dynamically based on the course name
+
     const getImageUrl = (courseName) => {
         const imageMapping = {
             Swimming: "swim-image.jpg", // Example, map the course name to image
             Skating: "skate-image.jpg",
-            Tennis: "tennis-image.jpg",
+            Tennis: "tennis-image.jpeg",
             Basketball: "basketball-image.jpg",
+            Football: "football-image.jpg"
         };
         return `/category/${imageMapping[courseName] || "default-image.jpg"}`;
     };

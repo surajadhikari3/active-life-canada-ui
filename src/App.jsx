@@ -10,6 +10,8 @@ import Navbar from "./components/Navbar.jsx";
 import CourseCard from "./components/CourseCard.jsx";
 import CourseDetails from "./components/CourseDetails.jsx";
 import LandingPage from "./components/LandingPage.jsx";
+import {ToastContainer} from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
 
@@ -18,6 +20,7 @@ function App() {
         <Provider store={store}>
             <div className="flex flex-col min-h-screen">
                 <Navbar/>
+                <ToastContainer />
                 <div className="flex-grow mt-20 px-6">
                     <BrowserRouter>
                         <Routes>

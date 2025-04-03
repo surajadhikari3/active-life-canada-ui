@@ -12,7 +12,6 @@ export default function Navbar() {
 
     const authenticationStatus = useSelector(state => state.authentication);
     const dispatch = useDispatch();
-    console.log("authentica", authenticationStatus)
 
     const navigation = [
         { name: 'Dashboard', href: '/dashboard', icon: <FaHome className="mr-2" />, current: true },
@@ -61,7 +60,7 @@ export default function Navbar() {
                             </div>
                         </div>
                         <div className="flex items-center space-x-4">
-                            {!authenticationStatus.isActive ?
+                            {!authenticationStatus?.isActive ?
                                 <>
                             <a href="/login" className="flex items-center bg-gray-700 text-white px-3 py-2 rounded-lg hover:bg-gray-600">
                                 <FaSignInAlt className="mr-2" /> Login
