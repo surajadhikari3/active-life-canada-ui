@@ -62,7 +62,7 @@ const LoginForm = () => {
                             {
                                 name: "familyPin",
                                 label: "Family Pin",
-                                type: "number",
+                                type: "password",
                                 placeholder: "Enter a 5-digit pin"
                             },
                         ].map(({name, label, type, placeholder}) => (

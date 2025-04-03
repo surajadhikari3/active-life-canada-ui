@@ -9,7 +9,6 @@ const initialState = {
     preferredContact: "",
 };
 
-
 const signUpFormSlice = createSlice({
     name: "signUpForm",
     initialState,

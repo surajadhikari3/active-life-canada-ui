@@ -10,9 +10,9 @@ const login2FAFormSlice = createSlice({
     initialState,
     reducers: {
         updateFormData: (state, action) => {
-            return { ...state, ...action.payload }; // Merge new form data
+            return { ...state, ...action.payload };
         },
-        resetForm: () => initialState, // Reset form data
+        resetForm: () => initialState,
     },
 });
 

@@ -3,13 +3,15 @@ import {yupResolver} from "@hookform/resolvers/yup";
 import {useSelector, useDispatch} from "react-redux";
 import {updateFormData, resetForm} from "../redux/login2FAFormSlice.jsx";
 import {login2FAFormSchema} from "../validation/login2FAValidationSchema.jsx";
-import {AUTHENTICATION_BASE_URL} from "../constant/activeLifeConstants.jsx";
 import {useNavigate} from "react-router";
+import {updateAuthenticationStatus} from "../redux/authenticationSlice.jsx";
+import axiosInstance from "../axios/axiosInstance.js";
+import {  toast } from 'react-toastify';
+import {AUTHENTICATION_BASE_URL} from "../constant/activeLifeConstants.jsx";
 
 const Login2FAForm = () => {
     const dispatch = useDispatch();
     const formData = useSelector(state => state.login2FAForm);
-
     const navigate = useNavigate();
 
     const {
@@ -40,13 +42,20 @@ const Login2FAForm = () => {
 
                 const responseData = await response.json();
                 console.log("Server Response", responseData);
+                const token = responseData?.token
+                console.log(token);
+                localStorage.setItem('authToken', token);
                 dispatch(resetForm());
                 reset();
-                alert("Final Login SuccessFul");
-                navigate('/course')
+                dispatch(updateAuthenticationStatus({
+                    memberLoginId: data.familyMemberId,
+                    isActive: true
+                }))
+                toast("Final Login SuccessFul");
+                navigate('/')
             } catch (error) {
                 console.error("Submission error", error);
-                alert("Failed to submit form. Please try again")
+                toast("Failed to submit form. Please try again")
             }
         };
 
