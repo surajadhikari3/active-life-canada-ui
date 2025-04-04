@@ -5,14 +5,16 @@ import {updateFormData, resetForm} from "../redux/signUpFormSlice.jsx";
 import {signUpFormSchema} from "../validation/signupValidationSchema.jsx";
 import {ChevronDownIcon} from "@heroicons/react/16/solid/index.js";
 import {useNavigate} from "react-router";
-import {AUTHENTICATION_BASE_URL} from "../constant/activeLifeConstants.jsx";
+import {AUTHENTICATION_BASE_URL, BASE_URL} from "../constant/activeLifeConstants.jsx";
 import {toast} from 'react-toastify';
+import axiosInstance from "@/axios/axiosInstance.js";
 
 
-const SignUpForm = () => {
+const SignUpForm = ({isSignUp = true, onSuccess}) => {
+    console.log("signup", isSignUp)
     const dispatch = useDispatch();
     const formData = useSelector(state => state.signUpForm);
-
+    const authentication = useSelector(state => state.authentication);
     const navigate = useNavigate()
 
     const {
@@ -27,21 +29,38 @@ const SignUpForm = () => {
 
     const onSubmit = async (data) => {
         try {
-            const response = await fetch(AUTHENTICATION_BASE_URL + "/signup", {
+            let response;
+            if(isSignUp) {
+                console.log("data", data)
+                const signUpUrl = AUTHENTICATION_BASE_URL + "/signup";
+                const singUpResponse = await fetch(signUpUrl, {
+                    method: "POST", headers: {
+                        "Content-Type": "application/json",
+                    }, body: JSON.stringify(data)
+                })
+                 response = await singUpResponse.json();
+            } else{
+                const memberResponse = await axiosInstance.post("/family/members",
+                    JSON.stringify(data),
+                    {
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-family-group-id" : authentication?.memberLoginId
+                    }
+                });
+                 response = await memberResponse?.data;
+                 onSuccess();
+            }
 
-                method: "POST", headers: {
-                    "Content-Type": "application/json"
-                }, body: JSON.stringify(data)
-            })
-            const responseData = await response.json();
+            console.log("response", response)
 
             if (!response.ok) {
-                throw new Error(responseData.message || `Server Error: ${response.status}`);
+                throw new Error(response.message || `Server Error: ${response.status}`);
             }
             dispatch(resetForm());
             reset();
-            toast.success('Signup SuccessFul')
-            navigate('/login');
+            toast.success(isSignUp ? 'Signup SuccessFul' : 'Member added successfully')
+           isSignUp ? navigate('/login') : '';
         } catch (error) {
             console.error("Submission error", error);
             toast.error(error.message || "Something went wrong", {position: "top-right", autoClose: 3000});
@@ -50,7 +69,7 @@ const SignUpForm = () => {
 
     return (<>
         <div
-            className="flex min-h-full flex-1 justify-center items-center flex-col justify-center px-6 py-12 lg:px-8">
+            className={isSignUp ? 'flex min-h-full flex-1 justify-center items-center flex-col px-6 py-12 lg:px-8' : "min-w-80"}>
             <form onSubmit={handleSubmit(onSubmit)}
                   className="w-full justify-center max-w-lg bg-white p-6 rounded-xl shadow-lg space-y-6">
                 <h2 className="text-xl font-semibold text-gray-900">Family Sign Up</h2>

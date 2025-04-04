@@ -12,6 +12,8 @@ import CourseDetails from "./components/CourseDetails.jsx";
 import LandingPage from "./components/LandingPage.jsx";
 import {ToastContainer} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import SimpleDashboard from "@/components/dashboard/simple-dashboard.jsx";
+import {AddMemberModal} from "@/components/addMemberModal.jsx";
 
 function App() {
 
@@ -24,6 +26,9 @@ function App() {
                     <div className="flex-grow mt-20 px-6">
                             <Routes>
                                 <Route path="/" element={<LandingPage/>}/>
+                                {/*<Route path="/dashboard" element={<Dashboard/>}/>*/}
+                                <Route path="/addMember" element={<AddMemberModal/>}/>
+                                <Route path="/dashboard" element={<SimpleDashboard/>}/>
                                 <Route path="/signup" element={<SignUpForm/>}/>
                                 <Route path="/login" element={<LoginForm/>}/>
                                 <Route path="/login2FA" element={<Login2FAForm/>}/>

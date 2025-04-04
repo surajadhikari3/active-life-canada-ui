@@ -13,7 +13,6 @@ const CourseList = () => {
             try {
                 const  response = await axiosInstance.get("/offeredCourses");
                 const data = response?.data;
-
                 setCourses(data);
                 setFilteredCourses(data);
             }catch (error){

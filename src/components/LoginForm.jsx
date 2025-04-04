@@ -1,11 +1,12 @@
 import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {useSelector, useDispatch} from "react-redux";
-import {updateFormData, resetForm} from "../redux/loginFormSlice.jsx";
+import {resetForm, updateLoginFormData} from "../redux/loginFormSlice.jsx";
 import {loginFormSchema} from "../validation/loginValidationSchema.jsx";
 import {useNavigate} from "react-router";
 import {AUTHENTICATION_BASE_URL} from "../constant/activeLifeConstants.jsx";
 import {toast} from 'react-toastify';
+import {update2FAFormData} from "@/redux/login2FAFormSlice.jsx";
 
 
 const LoginForm = () => {
@@ -24,7 +25,7 @@ const LoginForm = () => {
     });
 
     const handleAutoSave = (e) => {
-        dispatch(updateFormData({[e.target.name]: e.target.value}));
+        dispatch(updateLoginFormData({[e.target.name]: e.target.value}));
     };
 
     const onSubmit = async (data) => {
@@ -36,7 +37,6 @@ const LoginForm = () => {
                 },
                 body: JSON.stringify(data)
             });
-
             const responseData = await response.json();
 
             if (!response.ok) {
@@ -46,6 +46,10 @@ const LoginForm = () => {
             console.log("Server Response", responseData);
             dispatch(resetForm());
             reset();
+            dispatch(update2FAFormData({
+                familyMemberId: data.familyMemberId,
+                otp: ''
+            }))
             toast.success('Login Successful! OTP sent', {position: "top-right", autoClose: 3000});
             navigate('/login2FA');
 

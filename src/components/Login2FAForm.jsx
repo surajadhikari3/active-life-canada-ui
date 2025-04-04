@@ -1,7 +1,7 @@
 import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {useSelector, useDispatch} from "react-redux";
-import {updateFormData, resetForm} from "../redux/login2FAFormSlice.jsx";
+import {update2FAFormData, resetForm} from "../redux/login2FAFormSlice.jsx";
 import {login2FAFormSchema} from "../validation/login2FAValidationSchema.jsx";
 import {useNavigate} from "react-router";
 import {updateAuthenticationStatus} from "../redux/authenticationSlice.jsx";
@@ -24,7 +24,7 @@ const Login2FAForm = () => {
     });
 
     const handleAutoSave = (e) => {
-        dispatch(updateFormData({[e.target.name]: e.target.value}));
+        dispatch(update2FAFormData({[e.target.name]: e.target.value}));
     };
 
     //since it is promise calling the async await....
@@ -45,6 +45,8 @@ const Login2FAForm = () => {
                 }
 
                 console.log("Server Response", responseData);
+                console.log("token", responseData?.token)
+                localStorage.setItem("authToken", responseData?.token)
                 dispatch(resetForm());
                 reset();
                 dispatch(updateAuthenticationStatus({
@@ -71,23 +73,26 @@ const Login2FAForm = () => {
                             name: "familyMemberId",
                             label: "Family Member Id",
                             type: "text",
-                            placeholder: "Enter your family Member Id"
+                            placeholder: "Enter your family Member Id",
+                            disabled: true
                         },
 
                         {
                             name: "otp",
                             label: "OTP",
                             type: "number",
-                            placeholder: "Enter your OTP"
+                            placeholder: "Enter your OTP",
+                            disabled: false
                         },
-                    ].map(({name, label, type, placeholder}) => (
+                    ].map(({name, label, type, placeholder, disabled}) => (
                         <div key={name} className="sm:col-span-4">
                             <label className="block text-sm font-medium text-gray-900">{label}</label>
                             <div className="mt-2">
                                 <input
                                     {...register(name)}
                                     type={type}
-                                    className="block w-full rounded-md border-gray-300 p-2.5 text-gray-900 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                    hidden={disabled}
+                                    className="block w-full rounded-md border-gray-300 p-2.5 text-gray-900 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 disabled:text-gray-500"
                                     placeholder={placeholder}
                                     onChange={handleAutoSave}
                                 />
