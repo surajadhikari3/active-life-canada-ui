@@ -45,9 +45,6 @@ const Login2FAForm = () => {
                 }
 
                 console.log("Server Response", responseData);
-                const token = responseData?.token
-                console.log(token);
-                localStorage.setItem('authToken', token);
                 dispatch(resetForm());
                 reset();
                 dispatch(updateAuthenticationStatus({

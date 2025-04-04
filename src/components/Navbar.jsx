@@ -3,6 +3,7 @@ import { Bars3Icon, XMarkIcon, BellIcon } from '@heroicons/react/24/outline';
 import { FaSignInAlt, FaUserPlus, FaHome, FaBookOpen } from 'react-icons/fa';
 import {useSelector, useDispatch} from "react-redux";
 import {resetAuthenticationStatus} from "../redux/authenticationSlice.jsx";
+import { Link } from 'react-router'
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ');
@@ -19,6 +20,7 @@ export default function Navbar() {
     ];
 
     const logOut = () => {
+        console.log("reset")
         dispatch(resetAuthenticationStatus());
     }
 
@@ -39,14 +41,14 @@ export default function Navbar() {
                             <div className="flex shrink-0 items-center">
                                 <img alt="Active Life Canada" src="/logo.jpg" className="h-8 w-auto" />
                             </div>
-                            <a href="/" className="text-white ml-4 text-lg font-semibold no-underline">Active Life Canada</a>
+                            <Link to="/" className="text-white ml-4 text-lg font-semibold no-underline">Active Life Canada</Link>
 
                             <div className="hidden sm:ml-6 sm:block">
                                 <div className="flex space-x-4">
                                     {navigation.map((item) => (
-                                        <a
+                                        <Link
                                             key={item.name}
-                                            href={item.href}
+                                            to={item.href}
                                             aria-current={item.current ? 'page' : undefined}
                                             className={classNames(
                                                 item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
@@ -54,27 +56,30 @@ export default function Navbar() {
                                             )}
                                         >
                                             {item.icon} {item.name}
-                                        </a>
+                                        </Link>
                                     ))}
                                 </div>
                             </div>
                         </div>
                         <div className="flex items-center space-x-4">
-                            {!authenticationStatus?.isActive ?
+                            {!authenticationStatus.isActive ?
                                 <>
-                            <a href="/login" className="flex items-center bg-gray-700 text-white px-3 py-2 rounded-lg hover:bg-gray-600">
+                            <Link to="/login" className="flex items-center bg-gray-700 text-white px-3 py-2 rounded-lg hover:bg-gray-600">
                                 <FaSignInAlt className="mr-2" /> Login
-                            </a>
-                            <a href="/signup" className="flex items-center bg-blue-600 text-white px-3 py-2 rounded-lg hover:bg-blue-500">
+                            </Link>
+                            <Link to="/signup" className="flex items-center bg-blue-600 text-white px-3 py-2 rounded-lg hover:bg-blue-500">
                                 <FaUserPlus className="mr-2" /> SignUp
-                            </a>
+                            </Link>
                             </> : <>
-                                    <a href="/" className="flex items-center bg-blue-600 text-white px-3 py-2 rounded-lg hover:bg-blue-500">
-                                        <FaUserPlus className="mr-2" onClick={() => logOut()} /> Logout
-                                    </a>
+                                    <Link to="/addMember" className="flex items-center bg-blue-600 text-white px-3 py-2 rounded-lg hover:bg-blue-500">
+                                        <FaSignInAlt className="mr-2" /> Add Member
+                                    </Link>
+
+                                    <Link to="/" onClick={() => logOut()} className="flex items-center bg-blue-600 text-white px-3 py-2 rounded-lg hover:bg-blue-500">
+                                        <FaUserPlus className="mr-2" /> Logout
+                                    </Link>
                                 </>
                             }
-
                         </div>
                     </div>
                 </div>

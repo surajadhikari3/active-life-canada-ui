@@ -16,25 +16,24 @@ import "react-toastify/dist/ReactToastify.css";
 function App() {
 
     return (
-
-        <Provider store={store}>
-            <div className="flex flex-col min-h-screen">
-                <Navbar/>
-                <ToastContainer />
-                <div className="flex-grow mt-20 px-6">
-                    <BrowserRouter>
-                        <Routes>
-                            <Route path="/" element={<LandingPage/>}/>
-                            <Route path="/signup" element={<SignUpForm/>}/>
-                            <Route path="/login" element={<LoginForm/>}/>
-                            <Route path="/login2FA" element={<Login2FAForm/>}/>
-                            <Route path="/course" element={<CourseCard/>}/>
-                            <Route path="/course/details" element={<CourseDetails/>}/>
-                        </Routes>
-                    </BrowserRouter>
+        <BrowserRouter>
+            <Provider store={store}>
+                <div className="flex flex-col min-h-screen">
+                    <Navbar/>
+                    <ToastContainer />
+                    <div className="flex-grow mt-20 px-6">
+                            <Routes>
+                                <Route path="/" element={<LandingPage/>}/>
+                                <Route path="/signup" element={<SignUpForm/>}/>
+                                <Route path="/login" element={<LoginForm/>}/>
+                                <Route path="/login2FA" element={<Login2FAForm/>}/>
+                                <Route path="/course" element={<CourseCard/>}/>
+                                <Route path="/course/details" element={<CourseDetails/>}/>
+                            </Routes>
+                    </div>
                 </div>
-            </div>
-        </Provider>
+            </Provider>
+        </BrowserRouter>
     )
 }
 
