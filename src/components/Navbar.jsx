@@ -18,8 +18,8 @@ export default function Navbar() {
 
 
     const navigation = [
-        {name: 'Dashboard', href: '/dashboard', icon: <FaHome className="mr-2"/>},
-        {name: 'Courses', href: '/course', icon: <FaBookOpen className="mr-2"/>},
+        {name: 'Dashboard', navigateTo: '/dashboard', icon: <FaHome className="mr-2"/>},
+        {name: 'Courses', navigateTo: '/course', icon: <FaBookOpen className="mr-2"/>},
     ];
 
     const logOut = () => {
@@ -58,7 +58,7 @@ export default function Navbar() {
                                             <Link
                                                 onClick={() => handleNavigationOnClick(item.name)}
                                                 key={item.name}
-                                                to={item.href}
+                                                to={item.navigateTo}
                                                 aria-current={activeNavigation === item.name ? 'page' : undefined}
                                                 className={classNames(
                                                     activeNavigation === item.name ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',

@@ -54,6 +54,7 @@ const SignUpForm = ({isSignUp = true, onSuccess}) => {
 
             console.log("response", response)
 
+            //Todo : need to fix this for the addMember part every time it is throwing the error check response data
             if (!response.ok) {
                 throw new Error(response.message || `Server Error: ${response.status}`);
             }
