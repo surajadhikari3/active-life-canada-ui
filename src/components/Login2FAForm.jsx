@@ -7,10 +7,13 @@ import {useNavigate} from "react-router";
 import {updateAuthenticationStatus} from "../redux/authenticationSlice.jsx";
 import { toast } from 'react-toastify';
 import {AUTHENTICATION_BASE_URL} from "../constant/activeLifeConstants.jsx";
+import axiosInstance from "@/axios/axiosInstance.js";
+import {addItemToCart} from "@/redux/cartSlice.jsx";
 
 const Login2FAForm = () => {
     const dispatch = useDispatch();
     const formData = useSelector(state => state.login2FAForm);
+    // const data = useSelector(state => state.authentication);
     const navigate = useNavigate();
 
     const {
@@ -48,6 +51,7 @@ const Login2FAForm = () => {
                 console.log("token", responseData?.token)
                 localStorage.setItem("authToken", responseData?.token)
                 dispatch(resetForm());
+                fetchCart(data)
                 reset();
                 dispatch(updateAuthenticationStatus({
                     memberLoginId: data.familyMemberId,
@@ -60,6 +64,20 @@ const Login2FAForm = () => {
                 toast.error(error.message || "Something went wrong", { position: "top-right", autoClose: 3000 });
             }
         };
+
+        const fetchCart = async (data) => {
+            try {
+                const familyMemberId = data.familyMemberId;
+                const response = await axiosInstance.get(`/cart/${familyMemberId}`);
+                const data = response?.data;
+                console.log("data",data);
+                dispatch(addItemToCart(data))
+            } catch (error) {
+                console.log("error", error)
+            }
+        }
+
+
 
     return (
         <>

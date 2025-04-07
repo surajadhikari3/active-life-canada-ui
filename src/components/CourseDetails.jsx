@@ -62,7 +62,7 @@ const CourseDetails = () => {
                     <div className="w-full md:w-1/2 px-4 mb-8">
                         <img
                             // src={`/${mainImage}`}
-                            src={getImageUrl(course.course.name)}
+                            src={getImageUrl(course?.courseName)}
                             alt="Course"
                             className="w-full h-auto rounded-lg shadow-md mb-4"
                         />
@@ -84,7 +84,7 @@ const CourseDetails = () => {
 
                     {/* Course Details */}
                     <div className="w-full md:w-1/2 px-4">
-                        <h2 className="text-3xl font-bold mb-2">{course.course.name || "No Name Available"} </h2>
+                        <h2 className="text-3xl font-bold mb-2">{course?.courseName || "No Name Available"} </h2>
                         <div className="flex items-center space-x-2">
 
                 <span
@@ -99,7 +99,7 @@ const CourseDetails = () => {
                         </div>
 
 
-                        <p className="text-gray-600 mb-4">Course ID: {course.course.courseId || "N/A"}</p>
+                        <p className="text-gray-600 mb-4">Course ID: {course?.courseId || "N/A"}</p>
 
                         {/* Status Tag */}
                         <span
@@ -112,7 +112,7 @@ const CourseDetails = () => {
                         <p className="text-gray-700 mb-2"><strong>End Date:</strong> {course.endDate || "N/A"}</p>
 
                         {/* Description */}
-                        <p className="text-gray-700 mb-6">{course.course.description || "No description available."}</p>
+                        <p className="text-gray-700 mb-6">{course?.courseDescription || "No description available."}</p>
 
                         {/* Fee Type */}
                         <label className="block text-lg font-semibold mb-2">Select Fee Type:</label>
@@ -122,7 +122,7 @@ const CourseDetails = () => {
                             onChange={(e) => setSelectedFeeType(e.target.value)}
                         >
                             <option value="" disabled>Select a Fee Type</option>
-                            {course.offeredCourseFeeDto.map((offeredCourse) => (
+                            {course?.offeredCourseFeeDto?.map((offeredCourse) => (
                                 <option key={offeredCourse.feeType} value={offeredCourse.feeType}>
                                     {offeredCourse.feeType} - ${offeredCourse.courseFee}
                                 </option>

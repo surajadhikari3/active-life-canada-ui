@@ -92,9 +92,10 @@ export default function Navbar() {
                                           className="flex items-center bg-blue-600 text-white px-3 py-2 rounded-lg hover:bg-blue-500">
                                         <FaUserPlus className="mr-2"/> Logout
                                     </Link>
-                                    <CartIcon/>
+
                                 </>
                             }
+                            <CartIcon/>
                         </div>
                     </div>
                 </div>

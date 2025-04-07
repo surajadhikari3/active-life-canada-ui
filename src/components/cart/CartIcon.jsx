@@ -35,7 +35,7 @@ const CartIcon = () => {
                     borderRadius: "50%",
                 }}
             >
-                <Badge badgeContent={cart.cartCount} color="primary">
+                <Badge badgeContent={cart?.cartDetails?.cartCount} color="primary">
                     <ShoppingCartIcon />
                 </Badge>
             </IconButton>

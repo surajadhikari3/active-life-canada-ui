@@ -27,7 +27,7 @@ const CourseList = () => {
         // Filter courses based on search
         setFilteredCourses(
             courses.filter((course) =>
-                course.course.name.toLowerCase().includes(search.toLowerCase())
+                course?.courseName.toLowerCase().includes(search.toLowerCase())
             )
         );
     }, [search, courses]);
@@ -67,13 +67,13 @@ const CourseList = () => {
                     >
                         {/* Dynamically load image based on course name */}
                         <img
-                            src={getImageUrl(course.course.name)}
-                            alt={course.course.name}
+                            src={getImageUrl(course?.courseName)}
+                            alt={course?.courseName}
                             className="w-full h-40 object-cover rounded-lg mb-4"
                         />
                         {/*<h5 className="text-xl font-semibold text-gray-900 mb-2">{course.course.name}</h5>*/}
                         <h6 className="text-xl font-semibold text-gray-900 mb-2">{course.barCode}</h6>
-                        <p className="text-gray-700 mb-4">{course.course.description}</p>
+                        <p className="text-gray-700 mb-4">{course?.courseDescription}</p>
                         <Link
                             to={`/course/details`}
                             state={{course}}
