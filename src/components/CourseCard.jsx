@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { FaSearch, FaArrowRight } from "react-icons/fa";
-import { Link } from "react-router";
+import React, {useState, useEffect} from "react";
+import {FaSearch, FaArrowRight} from "react-icons/fa";
+import {Link} from "react-router";
 import axiosInstance from "../axios/axiosInstance.js";
 
 const CourseList = () => {
@@ -11,11 +11,11 @@ const CourseList = () => {
     useEffect(() => {
         const fetchOfferedCourses = async () => {
             try {
-                const  response = await axiosInstance.get("/offeredCourses");
+                const response = await axiosInstance.get("/offeredCourses");
                 const data = response?.data;
                 setCourses(data);
                 setFilteredCourses(data);
-            }catch (error){
+            } catch (error) {
                 console.log("error", error)
             }
         }
@@ -55,7 +55,7 @@ const CourseList = () => {
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                 />
-                <FaSearch className="ml-2 text-gray-500 size-5" />
+                <FaSearch className="ml-2 text-gray-500 size-5"/>
             </div>
 
             {/* Course Cards */}
@@ -76,10 +76,10 @@ const CourseList = () => {
                         <p className="text-gray-700 mb-4">{course.course.description}</p>
                         <Link
                             to={`/course/details`}
-                            state={{ course }}
+                            state={{course}}
                             className="flex items-center text-blue-600 hover:text-blue-800 font-medium"
                         >
-                            See More <FaArrowRight className="ml-2" />
+                            See More <FaArrowRight className="ml-2"/>
                         </Link>
                     </div>
                 ))}

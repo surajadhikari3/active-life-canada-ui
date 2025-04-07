@@ -5,6 +5,8 @@ import {useSelector, useDispatch} from "react-redux";
 import {resetAuthenticationStatus} from "../redux/authenticationSlice.jsx";
 import {Link} from 'react-router'
 import {useState} from "react";
+import CartDrawer from "@/components/cart/CartDrawer.jsx";
+import CartIcon from "@/components/cart/CartIcon.jsx";
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ');
@@ -86,17 +88,13 @@ export default function Navbar() {
                                         <FaUserPlus className="mr-2"/> SignUp
                                     </Link>
                                 </> : <>
-                                    <Link to="/addMember"
-                                          className="flex items-center bg-blue-600 text-white px-3 py-2 rounded-lg hover:bg-blue-500">
-                                        <FaSignInAlt className="mr-2"/> Add Member
-                                    </Link>
-
                                     <Link to="/" onClick={() => logOut()}
                                           className="flex items-center bg-blue-600 text-white px-3 py-2 rounded-lg hover:bg-blue-500">
                                         <FaUserPlus className="mr-2"/> Logout
                                     </Link>
                                 </>
                             }
+                            <CartIcon/>
                         </div>
                     </div>
                 </div>

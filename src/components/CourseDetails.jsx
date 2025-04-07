@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router";
 import {FaCartArrowDown} from "react-icons/fa";
+import {useDispatch} from "react-redux";
+import {addItemToCart} from "@/redux/cartSlice.jsx";
 
 const CourseDetails = () => {
     const location = useLocation();
@@ -8,6 +10,7 @@ const CourseDetails = () => {
     const [mainImage, setMainImage] = useState("");
     const [copied, setCopied] = useState(false);
     const [selectedFeeType, setSelectedFeeType] = useState("");
+    const dispatch = useDispatch();
 
 
     useEffect(() => {
@@ -20,6 +23,7 @@ const CourseDetails = () => {
     if (!course) {
         return <p>Loading course details...</p>;
     }
+
     const courseStatus = !course?.availableForEnrollment ? "Closed" : "Available";
 
 
@@ -29,6 +33,10 @@ const CourseDetails = () => {
             setTimeout(() => setCopied(false), 2000); // Reset copied state after 2 sec
         });
     };
+
+    const addToCart = () => {
+            dispatch(addItemToCart(course))
+    }
 
     const getImageUrl = (courseName) => {
         const imageMapping = {
@@ -41,11 +49,13 @@ const CourseDetails = () => {
         return `/category/${imageMapping[courseName] || "default-image.jpg"}`;
     };
 
-
     console.log("cour", course);
+
 
     return (
         <div className="bg-gray-100 mt-10">
+
+
             <div className="container mx-auto px-4 py-8">
                 <div className="flex flex-wrap -mx-4">
                     {/* Course Images */}
@@ -56,7 +66,7 @@ const CourseDetails = () => {
                             alt="Course"
                             className="w-full h-auto rounded-lg shadow-md mb-4"
                         />
-
+                    {/*Todo: For adding the muliple image in details page*/}
                        {/* This is to display the multiple image option*/}
                         {/*<div className="flex gap-4 py-4 justify-center overflow-x-auto">*/}
                         {/*    {course.images?.map((image, index) => (*/}
@@ -70,9 +80,6 @@ const CourseDetails = () => {
                         {/*    ))}*/}
                         {/*</div>*/}
                     </div>
-
-
-
 
 
                     {/* Course Details */}
@@ -129,7 +136,7 @@ const CourseDetails = () => {
                             </div>
                         )}
 
-                        <button
+                        <button onClick={() => addToCart()}
                             className="flex items-center justify-center text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 font-medium rounded-lg text-sm px-6 py-3 transition-all duration-300 ease-in-out transform hover:scale-105 active:scale-95 me-2 mb-2">
                             <FaCartArrowDown className="mr-2" /> Add to Cart
                         </button>

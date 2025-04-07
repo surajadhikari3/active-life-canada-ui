@@ -14,6 +14,7 @@ import {ToastContainer} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import SimpleDashboard from "@/components/dashboard/simple-dashboard.jsx";
 import {AddMemberModal} from "@/components/addMemberModal.jsx";
+import CartDrawer from "@/components/cart/CartDrawer.jsx";
 
 function App() {
 
@@ -24,6 +25,8 @@ function App() {
                     <Navbar/>
                     <ToastContainer />
                     <div className="flex-grow mt-20 px-6">
+                        {/*<CartIcon/>*/}
+                        <CartDrawer/>
                             <Routes>
                                 <Route path="/" element={<LandingPage/>}/>
                                 {/*<Route path="/dashboard" element={<Dashboard/>}/>*/}
