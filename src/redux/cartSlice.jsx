@@ -16,6 +16,7 @@ const cartSlice = createSlice({
         toggleDrawer(state, action) {
             state.isDrawerOpen = action.payload;
         },
+        //handling the multiple add to cart switching to the single for now...
         addItemToCart(state, action) {
             const item = state.cartItems.find((i) => i.barCode === action.payload.barCode);
             const price = action.payload.offeredCourseFeeDto[0].courseFee;
