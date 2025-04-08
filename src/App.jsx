@@ -2,7 +2,7 @@ import './App.css'
 import {Provider} from "react-redux";
 import store from "./store/store.jsx";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {BrowserRouter, Routes, Route} from "react-router";
+import {BrowserRouter, Routes, Route, Navigate} from "react-router";
 import Login2FAForm from "./components/Login2FAForm.jsx";
 import SignUpForm from "./components/SignUpForm.jsx";
 import LoginForm from "./components/LoginForm.jsx";
@@ -15,6 +15,8 @@ import "react-toastify/dist/ReactToastify.css";
 import SimpleDashboard from "@/components/dashboard/simple-dashboard.jsx";
 import {AddMemberModal} from "@/components/addMemberModal.jsx";
 import CartDrawer from "@/components/cart/CartDrawer.jsx";
+import FamilyMember from "@/components/dashboard/FamilyMember.jsx";
+import DashboardLayout from "@/components/dashboard/DashboardLayout.jsx";
 
 function App() {
 
@@ -29,14 +31,18 @@ function App() {
                         <CartDrawer/>
                             <Routes>
                                 <Route path="/" element={<LandingPage/>}/>
-                                {/*<Route path="/dashboard" element={<Dashboard/>}/>*/}
                                 <Route path="/addMember" element={<AddMemberModal/>}/>
-                                <Route path="/dashboard" element={<SimpleDashboard/>}/>
                                 <Route path="/signup" element={<SignUpForm/>}/>
                                 <Route path="/login" element={<LoginForm/>}/>
                                 <Route path="/login2FA" element={<Login2FAForm/>}/>
                                 <Route path="/course" element={<CourseCard/>}/>
                                 <Route path="/course/details" element={<CourseDetails/>}/>
+
+                                {/* Dashboard layout and nested routes */}
+                                <Route path="/dashboard" element={<DashboardLayout />}>
+                                    <Route path="family" element={<FamilyMember />} />
+                                    <Route path="home" element={<SimpleDashboard />} />
+                                </Route>
                             </Routes>
                     </div>
                 </div>

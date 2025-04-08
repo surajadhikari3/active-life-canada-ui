@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 import {
     Drawer,
     IconButton,
@@ -15,6 +15,7 @@ import {removeItem, resetCart, toggleDrawer} from "@/redux/cartSlice.jsx";
 import { motion } from "framer-motion";
 import { MdDeleteForever } from "react-icons/md";
 import axiosInstance from "@/axios/axiosInstance.js";
+import {toast} from "react-toastify";
 
 
 const CartDrawer = () => {
@@ -31,21 +32,42 @@ const CartDrawer = () => {
     };
 
     const courseRegistration = async () => {
-        console.log("cart", cart)
-            const response = await axiosInstance.post("/cart",
-                JSON.stringify(cart?.cartDetails),{
+        console.log("cart", cart);
+        try {
+            const response = await axiosInstance.post(
+                "/cart",
+                JSON.stringify(cart?.cartDetails),
+                {
                     headers: {
                         "Content-Type": "application/json",
-                        "X-family-member-id" : authentication?.memberLoginId
+                        "X-family-member-id": authentication?.memberLoginId
                     }
-                });
-            const data = await  response?.data;
+                }
+            );
 
-            if(data){
-                dispatch(resetCart())
+            const data = response?.data;
+            if (data) {
+                dispatch(resetCart());
+                toast.success("Successfully registered to the course");
             }
             console.log("data", data);
+        } catch (error) {
+            console.error("Error during course registration:", error);
+
+            // Check if it's an Axios error with a response
+            if (error.response) {
+                const errorMessage =
+                    error.response.data?.message ||
+                    error.response.data?.error ||
+                    "Something went wrong while registering for the course";
+                toast.error(errorMessage);
+            } else {
+                // Network error or unexpected issue
+                toast.error("Network error or server is not responding.");
+            }
         }
+    };
+
 
 
     return (
@@ -101,7 +123,7 @@ const CartDrawer = () => {
                                     boxShadow: 1,
                                 }}>
                                     <Typography variant="subtitle1" fontWeight="bold">
-                                        {item.course?.name || "Course Title"}
+                                        {item?.courseName || "Course Title"}
                                     </Typography>
                                     <Typography variant="body2" color="textSecondary">
                                         Barcode: {item.barCode}

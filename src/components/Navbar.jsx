@@ -96,6 +96,7 @@ export default function Navbar() {
                                 </>
                             }
                             <CartIcon/>
+
                         </div>
                     </div>
                 </div>
