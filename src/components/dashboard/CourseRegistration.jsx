@@ -10,17 +10,19 @@ const CourseRegistrationList = () => {
     const [courseRegistrations, setCourseRegistration] = useState();
     const dispatch = useDispatch();
 
+
+    const fetchDetails = async () => {
+        try {
+            const res = await axiosInstance.get(`courseRegistrations/enrollment/${authentication?.memberLoginId}`);
+            setCourseRegistration(res?.data);
+            dispatch(updateCourseRegistration(res?.data))
+        } catch (error) {
+            console.error("Error fetching data", error);
+        }
+    };
+
     useEffect(() => {
-        const fetchDetails = async () => {
-            try {
-                const res = await axiosInstance.get(`courseRegistrations/enrollment/${authentication?.memberLoginId}`);
-                setCourseRegistration(res?.data);
-                dispatch(updateCourseRegistration(res?.data))
-            } catch (error) {
-                console.error("Error fetching data", error);
-            }
-        };
-        fetchDetails();
+        fetchDetails()
     }, []);
 
 
@@ -29,19 +31,14 @@ const CourseRegistrationList = () => {
             try {
                 const withDrawResponse = await axiosInstance.delete(`courseRegistrations/enrollment/withdraw/${enrollmentId}`);
                 const response = await withDrawResponse?.data;
-                if (!withDrawResponse.ok) {
+                if (withDrawResponse.status === 200) {
+                    fetchDetails()
+
+                    toast.success( 'Withdrawn From Course SuccessFully')
+                } else{
+                    toast.error( "Can not Drop course", {position: "top-right", autoClose: 1000});
                     throw new Error(response.message || `Server Error: ${response.status}`);
                 }
-                //to update the status
-                setCourseRegistration(prev =>
-                    prev.map(course =>
-                        course.familyCourseRegistrationId === enrollmentId
-                            ? { ...course, isWithdraw: true }
-                            : course
-                    )
-                );
-
-                toast.success( 'Withdrawn From Course SuccessFully')
             } catch (error) {
                 toast.error(error.message || "Can not Drop course", {position: "top-right", autoClose: 1000});
             }
