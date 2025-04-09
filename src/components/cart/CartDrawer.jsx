@@ -68,7 +68,10 @@ const CartDrawer = () => {
         }
     };
 
-
+    function removeFromCart(item) {
+        dispatch(removeItem(item))
+        toast.success("Items removed from cart")
+    }
 
     return (
 
@@ -155,7 +158,7 @@ const CartDrawer = () => {
                                             }}
                                         >
                                             <MdDeleteForever
-                                                onClick={() => removeItem(item)}
+                                                onClick={() => removeFromCart(item)}
                                                 size={28}
                                                 style={{cursor: "pointer"}}
                                             />

@@ -20,7 +20,7 @@ export default function Navbar() {
 
 
     const navigation = [
-        {name: 'Dashboard', navigateTo: '/dashboard', icon: <FaHome className="mr-2"/>},
+        {name: 'Dashboard', navigateTo: '/dashboard/home', icon: <FaHome className="mr-2"/>},
         {name: 'Courses', navigateTo: '/course', icon: <FaBookOpen className="mr-2"/>},
     ];
 
@@ -51,7 +51,7 @@ export default function Navbar() {
                             <div className="flex shrink-0 items-center">
                                 <img alt="Active Life Canada" src="/logo.jpg" className="h-8 w-auto"/>
                             </div>
-                            <Link to="/" className="text-white ml-4 text-lg font-semibold no-underline">Active Life
+                            <Link to="/" className="text-white ml-4 text-lg font-semibold no-underline"  style={{ textDecoration: "none" }}>Active Life
                                 Canada</Link>
                             {authenticationStatus.isActive ?
                                 <div className="hidden sm:ml-6 sm:block">
@@ -66,6 +66,7 @@ export default function Navbar() {
                                                     activeNavigation === item.name ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                                                     'rounded-md px-3 py-2 text-sm font-medium flex items-center no-underline'
                                                 )}
+                                                style={{ textDecoration: "none" }}
                                             >
                                                 {item.icon} {item.name}
                                             </Link>
@@ -80,16 +81,22 @@ export default function Navbar() {
                             {!authenticationStatus.isActive ?
                                 <>
                                     <Link to="/login"
-                                          className="flex items-center bg-gray-700 text-white px-3 py-2 rounded-lg hover:bg-gray-600">
+                                          className="flex items-center bg-gray-700 text-white px-3 py-2 rounded-lg hover:bg-gray-600 no-underline"
+                                          style={{ textDecoration: "none" }}
+                                    >
                                         <FaSignInAlt className="mr-2"/> Login
                                     </Link>
                                     <Link to="/signup"
-                                          className="flex items-center bg-blue-600 text-white px-3 py-2 rounded-lg hover:bg-blue-500">
+                                          className="flex items-center bg-blue-600 text-white px-3 py-2 rounded-lg hover:bg-blue-500"
+                                          style={{ textDecoration: "none" }}
+                                    >
                                         <FaUserPlus className="mr-2"/> SignUp
                                     </Link>
                                 </> : <>
                                     <Link to="/" onClick={() => logOut()}
-                                          className="flex items-center bg-blue-600 text-white px-3 py-2 rounded-lg hover:bg-blue-500">
+                                          className="flex items-center bg-blue-600 text-white px-3 py-2 rounded-lg hover:bg-blue-500 no-underline"
+                                          style={{ textDecoration: "none" }}
+                                    >
                                         <FaUserPlus className="mr-2"/> Logout
                                     </Link>
 

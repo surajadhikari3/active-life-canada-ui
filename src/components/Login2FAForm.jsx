@@ -51,7 +51,7 @@ const Login2FAForm = () => {
                 console.log("token", responseData?.token)
                 localStorage.setItem("authToken", responseData?.token)
                 dispatch(resetForm());
-                fetchCart(data)
+                // fetchCart(data)
                 reset();
                 dispatch(updateAuthenticationStatus({
                     memberLoginId: data.familyMemberId,
@@ -65,17 +65,17 @@ const Login2FAForm = () => {
             }
         };
 
-        const fetchCart = async (data) => {
-            try {
-                const familyMemberId = data.familyMemberId;
-                const response = await axiosInstance.get(`/cart/${familyMemberId}`);
-                const data = response?.data;
-                console.log("data",data);
-                dispatch(addItemToCart(data))
-            } catch (error) {
-                console.log("error", error)
-            }
-        }
+        // const fetchCart = async (data) => {
+        //     try {
+        //         const familyMemberId = data.familyMemberId;
+        //         const response = await axiosInstance.get(`/cart/${familyMemberId}`);
+        //         const data = response?.data;
+        //         console.log("data",data);
+        //         dispatch(addItemToCart(data))
+        //     } catch (error) {
+        //         console.log("error", error)
+        //     }
+        // }
 
 
 

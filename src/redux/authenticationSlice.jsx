@@ -2,7 +2,9 @@ import {createSlice} from "@reduxjs/toolkit";
 
 const initialState = {
     memberLoginId: null,
-    isActive: false
+    isActive: false,
+    familyGroup: null,
+    courseRegistration: null
 };
 
 const authenticationSlice = createSlice({
@@ -10,12 +12,19 @@ const authenticationSlice = createSlice({
     initialState,
     reducers: {
         updateAuthenticationStatus: (state, action) => {
-            return {...state, ...action.payload}; // Merge new form data
+            state.memberLoginId = action.payload.memberLoginId
+            state.isActive = action.payload.isActive
         },
-        resetAuthenticationStatus: () => initialState, // Reset the state
+        updateFamilyGroup: (state, action) => {
+            state.familyGroup = action.payload
+        },
+        updateCourseRegistration: (state, action) => {
+            state.courseRegistration = action.payload
+        },
+        resetAuthenticationStatus: () => initialState
     },
 });
 
-export const {updateAuthenticationStatus, resetAuthenticationStatus} = authenticationSlice.actions;
+export const {updateAuthenticationStatus,updateFamilyGroup,updateCourseRegistration, resetAuthenticationStatus} = authenticationSlice.actions;
 
 export default authenticationSlice.reducer;

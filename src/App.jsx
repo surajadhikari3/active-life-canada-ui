@@ -12,11 +12,12 @@ import CourseDetails from "./components/CourseDetails.jsx";
 import LandingPage from "./components/LandingPage.jsx";
 import {ToastContainer} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import SimpleDashboard from "@/components/dashboard/simple-dashboard.jsx";
+import SimpleDashboard from "@/components/dashboard/Dashboard.jsx";
 import {AddMemberModal} from "@/components/addMemberModal.jsx";
 import CartDrawer from "@/components/cart/CartDrawer.jsx";
 import FamilyMember from "@/components/dashboard/FamilyMember.jsx";
 import DashboardLayout from "@/components/dashboard/DashboardLayout.jsx";
+import CourseRegistration from "@/components/dashboard/CourseRegistration.jsx";
 
 function App() {
 
@@ -27,8 +28,16 @@ function App() {
                     <Navbar/>
                     <ToastContainer />
                     <div className="flex-grow mt-20 px-6">
-                        {/*<CartIcon/>*/}
                         <CartDrawer/>
+                        {/*Default toaster config that all the component will use..*/}
+                        <ToastContainer
+                            autoClose={1000}
+                            hideProgressBar={true}
+                            position="top-right"
+                            pauseOnHover={true}
+                            closeOnClick={true}
+                            newestOnTop={true}
+                        />
                             <Routes>
                                 <Route path="/" element={<LandingPage/>}/>
                                 <Route path="/addMember" element={<AddMemberModal/>}/>
@@ -38,10 +47,11 @@ function App() {
                                 <Route path="/course" element={<CourseCard/>}/>
                                 <Route path="/course/details" element={<CourseDetails/>}/>
 
-                                {/* Dashboard layout and nested routes */}
+                                {/* Dashboard layout and nested routes for dashboard */}
                                 <Route path="/dashboard" element={<DashboardLayout />}>
                                     <Route path="family" element={<FamilyMember />} />
                                     <Route path="home" element={<SimpleDashboard />} />
+                                    <Route path="course-registration" element={< CourseRegistration/>} />
                                 </Route>
                             </Routes>
                     </div>

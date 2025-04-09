@@ -3,8 +3,12 @@ import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@/c
 import {Button} from "@/components/ui/button.jsx";
 import {Pencil, Trash2} from "lucide-react";
 import React from "react";
+import {useSelector} from "react-redux";
 
-const FamilyMember =({data}) => {
+const FamilyMember =() => {
+
+    const data = useSelector((state) => state?.authentication?.familyGroup);
+    console.log("data", data)
 
     return (
         <Card className="mt-6">
