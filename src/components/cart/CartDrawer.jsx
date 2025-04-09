@@ -16,13 +16,14 @@ import { motion } from "framer-motion";
 import { MdDeleteForever } from "react-icons/md";
 import axiosInstance from "@/axios/axiosInstance.js";
 import {toast} from "react-toastify";
+import {useNavigate} from "react-router";
 
 
 const CartDrawer = () => {
     const dispatch = useDispatch();
     const cart = useSelector((state) => state.cart);
     const authentication = useSelector((state) => state.authentication);
-
+    const navigate = useNavigate()
     const setDrawer = () => {
         dispatch(toggleDrawer(!cart.isDrawerOpen));
     };
@@ -48,6 +49,7 @@ const CartDrawer = () => {
             const data = response?.data;
             if (data) {
                 dispatch(resetCart());
+                navigate('/dashboard/home')
                 toast.success("Successfully registered to the course");
             }
             console.log("data", data);

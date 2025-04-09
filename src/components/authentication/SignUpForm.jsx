@@ -1,11 +1,9 @@
 import { useDispatch} from "react-redux";
-import { resetForm} from "../redux/signUpFormSlice.jsx";
+import { resetForm} from "../../redux/signUpFormSlice.jsx";
 import {useNavigate} from "react-router";
-import {AUTHENTICATION_BASE_URL} from "../constant/activeLifeConstants.jsx";
+import {AUTHENTICATION_BASE_URL} from "../../constant/activeLifeConstants.jsx";
 import {toast} from 'react-toastify';
 import RegistrationForm from "@/components/RegistrationForm.jsx";
-
-
 
 
 const SignUpForm = () => {

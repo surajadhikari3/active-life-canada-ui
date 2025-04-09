@@ -8,7 +8,6 @@ import {useSelector} from "react-redux";
 const FamilyMember =() => {
 
     const data = useSelector((state) => state?.authentication?.familyGroup);
-    console.log("data", data)
 
     return (
         <Card className="mt-6">

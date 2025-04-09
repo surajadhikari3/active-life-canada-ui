@@ -1,12 +1,12 @@
 import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {useSelector, useDispatch} from "react-redux";
-import {update2FAFormData, resetForm} from "../redux/login2FAFormSlice.jsx";
-import {login2FAFormSchema} from "../validation/login2FAValidationSchema.jsx";
+import {update2FAFormData, resetForm} from "../../redux/login2FAFormSlice.jsx";
+import {login2FAFormSchema} from "../../validation/login2FAValidationSchema.jsx";
 import {useNavigate} from "react-router";
-import {updateAuthenticationStatus} from "../redux/authenticationSlice.jsx";
+import {updateAuthenticationStatus} from "../../redux/authenticationSlice.jsx";
 import { toast } from 'react-toastify';
-import {AUTHENTICATION_BASE_URL} from "../constant/activeLifeConstants.jsx";
+import {AUTHENTICATION_BASE_URL} from "../../constant/activeLifeConstants.jsx";
 import axiosInstance from "@/axios/axiosInstance.js";
 import {addItemToCart} from "@/redux/cartSlice.jsx";
 

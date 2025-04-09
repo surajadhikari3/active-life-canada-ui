@@ -3,9 +3,9 @@ import {Provider} from "react-redux";
 import store from "./store/store.jsx";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {BrowserRouter, Routes, Route, Navigate} from "react-router";
-import Login2FAForm from "./components/Login2FAForm.jsx";
-import SignUpForm from "./components/SignUpForm.jsx";
-import LoginForm from "./components/LoginForm.jsx";
+import Login2FAForm from "./components/authentication/Login2FAForm.jsx";
+import SignUpForm from "./components/authentication/SignUpForm.jsx";
+import LoginForm from "./components/authentication/LoginForm.jsx";
 import Navbar from "./components/Navbar.jsx";
 import CourseCard from "./components/CourseCard.jsx";
 import CourseDetails from "./components/CourseDetails.jsx";
@@ -13,7 +13,6 @@ import LandingPage from "./components/LandingPage.jsx";
 import {ToastContainer} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import SimpleDashboard from "@/components/dashboard/Dashboard.jsx";
-import {AddMemberModal} from "@/components/addMemberModal.jsx";
 import CartDrawer from "@/components/cart/CartDrawer.jsx";
 import FamilyMember from "@/components/dashboard/FamilyMember.jsx";
 import DashboardLayout from "@/components/dashboard/DashboardLayout.jsx";
@@ -40,7 +39,7 @@ function App() {
                         />
                             <Routes>
                                 <Route path="/" element={<LandingPage/>}/>
-                                <Route path="/addMember" element={<AddMemberModal/>}/>
+                                {/*<Route path="/addMember" element={<AddMemberModal/>}/>*/}
                                 <Route path="/signup" element={<SignUpForm/>}/>
                                 <Route path="/login" element={<LoginForm/>}/>
                                 <Route path="/login2FA" element={<Login2FAForm/>}/>

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import {Users, BanknoteArrowUp, DollarSign, BookOpen, UserPlus} from "lucide-react";
+import {Users, BanknoteArrowUp, DollarSign, BookOpen, UserPlus, MessageCircleOff} from "lucide-react";
 import axiosInstance from "@/axios/axiosInstance.js";
 import { useDispatch, useSelector } from "react-redux";
-import SignUpForm from "@/components/SignUpForm.jsx";
+import SignUpForm from "@/components/authentication/SignUpForm.jsx";
 import {
     Dialog,
     DialogContent,
@@ -21,7 +21,7 @@ import {
     Legend,
     ResponsiveContainer,
 } from "recharts";
-import {updateCourseRegistration, updateFamilyGroup} from "@/redux/authenticationSlice.jsx";
+import {updateFamilyGroup} from "@/redux/authenticationSlice.jsx";
 import AddMemberForm from "@/components/AddMemberForm.jsx";
 
 const FamilyDashboard = () => {
@@ -36,13 +36,6 @@ const FamilyDashboard = () => {
                 const res = await axiosInstance.get(`/authentication/familyGroup/${authentication?.memberLoginId}`);
                 setData(res.data);
                 dispatch(updateFamilyGroup(res.data));
-                // const courseRegistration = res?.data
-                //     ?.familyMember
-                //     ?.find(member => member?.familyMemberId === authentication?.memberLoginId)
-                //     .courseRegistrations;
-                // console.log("registration", courseRegistration)
-                // dispatch(updateCourseRegistration(courseRegistration))
-
             } catch (error) {
                 console.error("Error fetching data", error);
             }
@@ -82,16 +75,6 @@ const FamilyDashboard = () => {
 
                 <Card className="shadow-lg rounded-lg border border-gray-200">
                     <CardContent className="p-4 flex flex-col md:flex-row justify-between items-center">
-                        {/*<div className="text-lg font-medium flex items-center">*/}
-                        {/*    <Users className="inline mr-2 text-blue-600" size={24} />*/}
-                        {/*    <span>Family Group - {data.familyGroupId}</span>*/}
-
-                        {/*    <div className="flex items-center gap-1 text-gray-700">*/}
-                        {/*        <BanknoteArrowUp size={18} strokeWidth={1.25} absoluteStrokeWidth />*/}
-                        {/*        <span>Credits: ${data?.credits?.toFixed(2)}</span>*/}
-                        {/*    </div>*/}
-                        {/*</div>*/}
-
                         <div className="text-lg font-medium flex flex-col gap-1 text-gray-700">
                             <div className="flex items-center gap-2">
                                 <Users className="text-blue-600" size={24} />
@@ -101,6 +84,12 @@ const FamilyDashboard = () => {
                             <div className=" flex items-center gap-1">
                                 <BanknoteArrowUp className="text-blue-600" size={18} strokeWidth={1.25} absoluteStrokeWidth />
                                 <span>Family Credits: ${data?.credits?.toFixed(2) || 0} </span>
+                            </div>
+
+                            <div className=" flex items-center gap-1">
+                                <MessageCircleOff className="text-blue-600" size={18} strokeWidth={1.75} absoluteStrokeWidth />
+                                {/*<BanknoteArrowUp className="text-blue-600" size={18} strokeWidth={1.25} absoluteStrokeWidth />*/}
+                                <span>Total Withdraw: {data?.totalWithdrawCourses || 0} </span>
                             </div>
                         </div>
                         <div className="flex gap-6 mt-2 md:mt-0">

@@ -1,10 +1,10 @@
 import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {useSelector, useDispatch} from "react-redux";
-import {resetForm, updateLoginFormData} from "../redux/loginFormSlice.jsx";
-import {loginFormSchema} from "../validation/loginValidationSchema.jsx";
+import {resetForm, updateLoginFormData} from "../../redux/loginFormSlice.jsx";
+import {loginFormSchema} from "../../validation/loginValidationSchema.jsx";
 import {useNavigate} from "react-router";
-import {AUTHENTICATION_BASE_URL} from "../constant/activeLifeConstants.jsx";
+import {AUTHENTICATION_BASE_URL} from "../../constant/activeLifeConstants.jsx";
 import {toast} from 'react-toastify';
 import {update2FAFormData} from "@/redux/login2FAFormSlice.jsx";
 

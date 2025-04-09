@@ -32,11 +32,15 @@ const CourseRegistrationList = () => {
                 const withDrawResponse = await axiosInstance.delete(`courseRegistrations/enrollment/withdraw/${enrollmentId}`);
                 const response = await withDrawResponse?.data;
                 if (withDrawResponse.status === 200) {
-                    fetchDetails()
-
+                    setCourseRegistration((prev) =>
+                        prev.map((course) =>
+                            course.familyCourseRegistrationId === enrollmentId
+                                ? { ...course, isWithdraw: true } // Mark as withdrawn
+                                : course
+                        )
+                    );
                     toast.success( 'Withdrawn From Course SuccessFully')
                 } else{
-                    toast.error( "Can not Drop course", {position: "top-right", autoClose: 1000});
                     throw new Error(response.message || `Server Error: ${response.status}`);
                 }
             } catch (error) {
